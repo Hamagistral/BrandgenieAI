@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import Heading from "@/components/heading";
-import { Wand2 } from "lucide-react";
+import { Music } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from './constants';
@@ -15,15 +15,13 @@ import { ChatCompletionRequestMessage } from "openai";
 import { useState } from "react";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
-import { cn } from "@/lib/utils";
-import { UserAvatar } from "@/components/user-avatar";
-import { BotAvatar } from "@/components/bot-avatar";
 import { useProModal } from "@/hooks/use-pro-modal";
 
-export default function BrandingPage () {
+
+export default function MusicPage () {
     const router = useRouter();
     const proModal = useProModal();
-    const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+    const [music, setMusic] = useState<string>();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -36,15 +34,11 @@ export default function BrandingPage () {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const userMessage: ChatCompletionRequestMessage = {
-                role: "user",
-                content: values.prompt,
-            };
-            const newMessages = [...messages, userMessage];
+            setMusic(undefined);
 
-            const response = await axios.post("/api/branding", {messages: newMessages});
+            const response = await axios.post("/api/music", values);
 
-            setMessages((current) => [...current, userMessage, response.data]);
+            setMusic(response.data.audio);
 
             form.reset();
         } catch (error: any) {
@@ -59,11 +53,11 @@ export default function BrandingPage () {
     return (
         <div>
             <Heading 
-                title="Branding"
-                description="Get a complete brand package for your e-commerce site with just a product description. Includes name, slogan, ad copy, and related keywords."
-                icon={Wand2}
-                iconColor="text-violet-500" 
-                bgColor="bg-violet-500/10"
+                title="Music"
+                description="Get a matching music to your business."
+                icon={Music}
+                iconColor="text-emerald-500" 
+                bgColor="bg-emerald-500/10"
             />
 
             <div className="px-4 lg:px-8">
@@ -73,7 +67,7 @@ export default function BrandingPage () {
                             <FormField name="prompt" render={({field}) => (
                                 <FormItem className="col-span-12 lg:col-span-10">
                                     <FormControl className="m-0 p-0">
-                                        <Input className="border-0 outline-none focus-visibl:ring-0 focus-visible:ring-transparent" disabled={isLoading} placeholder="Sport Watches, Hiking Gear, Cat Food and Toys..." {...field}/>
+                                        <Input className="border-0 outline-none focus-visibl:ring-0 focus-visible:ring-transparent" disabled={isLoading} placeholder="Happy Acoustic Guitar, Epic Hip Hop Piano..." {...field}/>
                                     </FormControl>
                                 </FormItem> )}/>
                                 <Button className="col-span-12 lg:col-span-2 w-full" disabled={isLoading}>
@@ -88,22 +82,16 @@ export default function BrandingPage () {
                             <Loader />
                         </div>
                     )}
-                    {messages.length === 0 && !isLoading && (
+                    {!music && !isLoading && (
                         <div>
-                            <Empty label="No Branding started."/>
+                            <Empty label="No Music generated."/>
                         </div>
                     )}
-                    <div className="flex flex-col-reverse gap-y-4">
-                        {messages.map((message) => (
-                            <div key={message.content} className={cn("p-6 w-full flex items-start gap-x-8 rounded-lg", message.role === "user" ? "bg-white border border-black/10" : "bg-muted")}>
-                                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                                <p className="text-sm">
-                                    {message.content}
-                                </p>
-                                
-                            </div>
-                        ))}
-                    </div>
+                    {music && (
+                        <audio controls className="w-full mt-8">
+                            <source src={music}/>
+                        </audio>
+                    )}
                 </div>
             </div>  
         </div>

@@ -7,6 +7,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { LayoutDashboard, ImagePlus, Wand2, VideoIcon, Music, Settings } from "lucide-react";
+import { getApiLimitCount } from './../lib/api-limit';
+
+import { FreeCounter } from "./free-counter";
 
 const montserrat = Montserrat({weight: "600", subsets: ["latin"]})
 
@@ -30,25 +33,29 @@ const routes = [
         color: "text-pink-500"
     },
     {
-        label: "Video Generation",
-        icon: VideoIcon,
-        href: "/video",
-        color: "text-orange-500"
-    },
-    {
         label: "Music Generation",
         icon: Music,
         href: "/music",
         color: "text-emerald-500"
     },
     {
+        label: "Video Generation",
+        icon: VideoIcon,
+        href: "/video",
+        color: "text-orange-500"
+    },
+    {
         label: "Settings",
         icon: Settings,
         href: "/settings",
     }
-]
+];
 
-const Sidebar = () => {
+interface SidebarProps {
+    apiLimitCount: number;
+}
+
+const Sidebar = ({apiLimitCount = 0}: SidebarProps) => {
     const pathname = usePathname();
 
     return (
@@ -72,6 +79,7 @@ const Sidebar = () => {
                     ))}
                 </div>
             </div>
+            <FreeCounter apiLimitCount={apiLimitCount} />
         </div>
     )
 }
