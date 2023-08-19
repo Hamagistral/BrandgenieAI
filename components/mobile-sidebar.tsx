@@ -7,7 +7,7 @@ import Sidebar from "./sidebar";
 import { useEffect, useState } from "react";
 import { checkSubscription } from "@/lib/subscription";
 
-interface ModbileSidebarProps {
+interface MobileSidebarProps {
     apiLimitCount: number;
     isPro: boolean;
 }
