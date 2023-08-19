@@ -64,7 +64,7 @@ export default function VideoPage () {
             />
 
             <div className="px-4 lg:px-8">
-                <div>
+                {/* <div>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="rounded-lg border w-full p-2 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2">
                             <FormField name="prompt" render={({field}) => (
@@ -78,7 +78,7 @@ export default function VideoPage () {
                                 </Button>
                         </form>
                     </Form>
-                </div>
+                </div> */}
                 <div className="space-y-2 mt-4">
                     {isLoading && (
                         <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
@@ -87,7 +87,7 @@ export default function VideoPage () {
                     )}
                     {!video && !isLoading && (
                         <div>
-                            <Empty label="No Video generated."/>
+                            <Empty label="Coming Soon!"/>
                         </div>
                     )}
                     {video && (
