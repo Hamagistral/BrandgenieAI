@@ -10,6 +10,7 @@ import { LayoutDashboard, ImagePlus, Wand2, VideoIcon, Music, Settings } from "l
 import { getApiLimitCount } from './../lib/api-limit';
 
 import { FreeCounter } from "./free-counter";
+import { checkSubscription } from "@/lib/subscription";
 
 const montserrat = Montserrat({weight: "600", subsets: ["latin"]})
 
@@ -53,9 +54,10 @@ const routes = [
 
 interface SidebarProps {
     apiLimitCount: number;
+    isPro: boolean;
 }
 
-const Sidebar = ({apiLimitCount = 0}: SidebarProps) => {
+const Sidebar = ({apiLimitCount = 0, isPro = false}: SidebarProps) => {
     const pathname = usePathname();
 
     return (
@@ -79,7 +81,7 @@ const Sidebar = ({apiLimitCount = 0}: SidebarProps) => {
                     ))}
                 </div>
             </div>
-            <FreeCounter apiLimitCount={apiLimitCount} />
+            <FreeCounter isPro={isPro} apiLimitCount={apiLimitCount} />
         </div>
     )
 }

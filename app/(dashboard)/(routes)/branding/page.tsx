@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "react-hot-toast";
 import axios from "axios";
 import Heading from "@/components/heading";
 import { Wand2 } from "lucide-react";
@@ -12,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
-import { useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
@@ -34,12 +35,28 @@ export default function BrandingPage () {
 
     const isLoading = form.formState.isSubmitting;
 
+    useEffect(() => {
+        const initializeChat = () => {
+          const systemMessage: ChatCompletionRequestMessage = {
+            role: "system",
+            content: "You are a helpful AI branding assistant that helps online business owners brand their ecommerce store. Your should teturn only 3 creative and unique suggestions of a brand names composed of single or two word related to the prompt, 3 unique and catchy slogans, 6 social media keywords in a hashtag format, and one brand ad copy they can use in their social media marketing campaign. Your return should be like this: 'Brand Names: your brand names suggestions'\n\n Brand Slogan: your suggestion of a slogan\n\n Brand Keywords: #keyword1 #keyword2 ...\n\n Brand Ad Copy: your suggestion for a brand ad copy.",
+          }
+          setMessages([systemMessage])
+        }
+    
+        if (!messages?.length) {
+          initializeChat()
+        }
+
+    }, [messages?.length, setMessages])
+
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const userMessage: ChatCompletionRequestMessage = {
                 role: "user",
                 content: values.prompt,
             };
+
             const newMessages = [...messages, userMessage];
 
             const response = await axios.post("/api/branding", {messages: newMessages});
@@ -50,6 +67,8 @@ export default function BrandingPage () {
         } catch (error: any) {
             if(error?.response?.status === 403) {
                 proModal.onOpen();
+            } else {
+                toast.error("Something went wrong");
             }
         } finally {
             router.refresh();
@@ -60,7 +79,7 @@ export default function BrandingPage () {
         <div>
             <Heading 
                 title="Branding"
-                description="Get a complete brand package for your e-commerce site with just a product description. Includes name, slogan, ad copy, and related keywords."
+                description="Get a complete brand package for your upcoming business with just a product description. Includes name, slogan, ad copy, and related keywords."
                 icon={Wand2}
                 iconColor="text-violet-500" 
                 bgColor="bg-violet-500/10"
@@ -88,19 +107,23 @@ export default function BrandingPage () {
                             <Loader />
                         </div>
                     )}
-                    {messages.length === 0 && !isLoading && (
+                    {messages.length === 1 && !isLoading && (
                         <div>
                             <Empty label="No Branding started."/>
                         </div>
                     )}
                     <div className="flex flex-col-reverse gap-y-4">
-                        {messages.map((message) => (
+                        {messages.slice(1).map((message) => (
                             <div key={message.content} className={cn("p-6 w-full flex items-start gap-x-8 rounded-lg", message.role === "user" ? "bg-white border border-black/10" : "bg-muted")}>
                                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
                                 <p className="text-sm">
-                                    {message.content}
+                                    {String(message.content).split('\n').map((line, index) => (
+                                        <Fragment key={index}>
+                                            {line.startsWith("Brand") ? <strong>{line}</strong> : line}
+                                            <br />
+                                        </Fragment>
+                                    ))}
                                 </p>
-                                
                             </div>
                         ))}
                     </div>

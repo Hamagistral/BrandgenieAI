@@ -21,6 +21,7 @@ import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from "@
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { toast } from 'react-hot-toast';
 
 export default function LogoPage () {
     const router = useRouter();
@@ -50,6 +51,8 @@ export default function LogoPage () {
         } catch (error: any) {
             if(error?.response?.status === 403) {
                 proModal.onOpen();
+            } else {
+                toast.error("Something went wrong");
             }
         } finally {
             router.refresh();
@@ -73,7 +76,7 @@ export default function LogoPage () {
                             <FormField name="prompt" render={({field}) => (
                                 <FormItem className="col-span-12 lg:col-span-6">
                                     <FormControl className="m-0 p-0">
-                                        <Input className="border-0 outline-none focus-visibl:ring-0 focus-visible:ring-transparent" disabled={isLoading} placeholder="Minimalistic Blanck & White Logo of a Sports Smart Watch" {...field}/>
+                                        <Input className="border-0 outline-none focus-visibl:ring-0 focus-visible:ring-transparent" disabled={isLoading} placeholder="A Minimalistic logo of a Bookshop featuring a hand holding a book" {...field}/>
                                     </FormControl>
                                 </FormItem> )}/>
                                 <FormField control={form.control} name="amount" render={({field}) => (
@@ -105,7 +108,7 @@ export default function LogoPage () {
                                             <SelectContent>
                                                 {resolutionOptions.map((option) => (
                                                     <SelectItem key={option.value} value={option.value}>
-                                                        {option.label}
+                                                        {option.label} px
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>
