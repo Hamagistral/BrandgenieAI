@@ -30,7 +30,7 @@ export const FreeCounter = ({apiLimitCount = 0, isPro = false}: FreeCounterProps
 
     return (
         <div className="px-3">
-          <Card className="bg-white/10 border-0">
+          <Card className="bg-slate-700 border-0">
             <CardContent className="py-6">
               <div className="text-center text-sm text-white mb-4 space-y-2">
                 <p>

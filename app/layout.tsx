@@ -10,13 +10,16 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Brandgenie | AI Branding Assistant',
-  description: 'AI Branding Assistant',
+  description: 'AI Branding Assistant'
 }
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <link rel="icon" href="favicon.ico" sizes="any" />
+        </head>
         <CrispProvider />
         <body className={inter.className}>
           <ModalProvider />

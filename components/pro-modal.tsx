@@ -62,11 +62,11 @@ export const ProModal = () => {
                     <DialogHeader>
                         <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
                             <div className="flex items-center gap-x-2 font-bold py-1">
-                                Upgrade your plan to Brandgenie
+                                Upgrade to Brandgenie
                                 <Badge className="uppercase text-sm py-1" variant="premium">pro</Badge>
                             </div>
                         </DialogTitle>
-                        <DialogDescription className="text-center pt-2 space-y-2 text-zinc-900 font-medium">
+                        <DialogDescription className="text-center pt-2 space-y-2 text-slate-900 font-medium">
                             {tools.map((tool) => (
                                 <Card key={tool.label} className="p-3 border-black/5 flex items-center justify-between">
                                     <div className="flex items-center gap-x-4">

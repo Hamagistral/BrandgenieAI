@@ -109,7 +109,7 @@ export default function BrandingPage () {
                     )}
                     {messages.length === 1 && !isLoading && (
                         <div>
-                            <Empty label="No Branding started."/>
+                            <Empty label="No Branding generated."/>
                         </div>
                     )}
                     <div className="flex flex-col-reverse gap-y-4">

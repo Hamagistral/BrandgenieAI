@@ -70,7 +70,7 @@ export default function VideoPage () {
                             <FormField name="prompt" render={({field}) => (
                                 <FormItem className="col-span-12 lg:col-span-10">
                                     <FormControl className="m-0 p-0">
-                                        <Input className="border-0 outline-none focus-visibl:ring-0 focus-visible:ring-transparent" disabled={isLoading} placeholder="A running man with a Smart Watch in his hands" {...field}/>
+                                        <Input className="border-0 outline-none focus-visibl:ring-0 focus-visible:ring-transparent" disabled={isLoading} placeholder="Orange cat eating Cat Food" {...field}/>
                                     </FormControl>
                                 </FormItem> )}/>
                                 <Button className="col-span-12 lg:col-span-2 w-full" disabled={isLoading}>

@@ -12,7 +12,7 @@ export const LandingHero = () => {
   return (
     <div className="text-white font-bold py-36 text-center space-y-5">
       <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl space-y-5 font-extrabold">
-        <h1>AI Branding Assistant for</h1>
+        <h1>Your AI Assistant for</h1>
         <div className="pb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           <TypewriterComponent
             options={{
@@ -28,7 +28,7 @@ export const LandingHero = () => {
           />
         </div>
       </div>
-      <div className="text-sm md:text-xl font-light text-slate-400">
+      <div className="text-sm md:text-xl font-light text-slate-200 ">
         Unleash Your Business Magic with BrandGenie
       </div>
       <div>
@@ -38,7 +38,7 @@ export const LandingHero = () => {
           </Button>
         </Link>
       </div>
-      <div className="text-slate-400 text-xs md:text-sm font-normal">
+      <div className="text-slate-200 text-xs md:text-sm font-normal">
         No credit card required.
       </div>
     </div>
