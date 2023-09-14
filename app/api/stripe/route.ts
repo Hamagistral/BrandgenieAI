@@ -43,7 +43,7 @@ export async function GET() {
                         name: "Brandgenie Pro",
                         description: "Unlimited AI Generations"
                     },
-                    unit_amount: 2000,
+                    unit_amount: 1500,
                     recurring:{
                         interval: "month"
                     },

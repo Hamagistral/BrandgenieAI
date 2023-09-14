@@ -26,13 +26,6 @@ const tools = [
     color: "text-emerald-500",
     bgColor: "bg-emerald-500/10",
     href: "/music"
-  },
-  {
-    label: "Video Generation",
-    icon: VideoIcon,
-    color: "text-orange-500",
-    bgColor: "bg-orange-500/10",
-    href: "/video",
   }
 ]
 
