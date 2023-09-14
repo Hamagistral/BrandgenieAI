@@ -5,7 +5,7 @@ import Heading from "@/components/heading";
 import { Download, ImagePlus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { amountOptions, formSchema, resolutionOptions } from './constants';
+import { formSchema } from './constants';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem,  } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -40,7 +40,7 @@ export default function LogoPage () {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setLogo('');
-            
+
             const response = await axios.post("/api/logo", values);
 
             console.log(response.data[0]);
